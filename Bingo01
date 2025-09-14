@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define COLUNA 5
+#define CARTELA 4
+
+// Conta o número de linhas no arquivo
+int conteNumeroLinhas(FILE *arquivo) {
+    char c;
+    int linhas = 0;
+
+    while (fread(&c, sizeof(char), 1, arquivo)) {
+        if (c == '\n') {
+            linhas++;
+        }
+    }
+
+    rewind(arquivo); // volta para o início do arquivo
+    return linhas;
+}
+
+// Lê uma linha específica do arquivo (1-indexada)
+void lerLinhaCartela(FILE *arquivo, int numeroLinha, char *linha) {
+    rewind(arquivo); // volta ao início do arquivo
+    int contador = 1;
+
+    while (fgets(linha, 100, arquivo)) {
+        if (contador == numeroLinha) {
+            return;
+        }
+        contador++;
+    }
+
+    linha[0] = '\0'; // se não encontrar, retorna string vazia
+}
+
+// Mostra as 4 cartelas sorteadas, destacando a primeira
+void sorteiaCartelas(FILE *arquivo, int totalLinhas) {
+    int linhasSorteadas[CARTELA];
+    char linha[100];
+
+    srand(time(NULL));
+
+    for (int i = 0; i < CARTELA; i++) {
+        linhasSorteadas[i] = rand() % totalLinhas + 1;
+    }
+
+    for (int i = 0; i < CARTELA; i++) {
+        lerLinhaCartela(arquivo, linhasSorteadas[i], linha);
+        
+        linha[strcspn(linha, "\n")] = '\0';
+        
+        printf("Cartela %d: %s", i + 1, linha);
+
+        if (i == 0) {
+            printf("   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n\n");
+        } else {
+            printf("\n\n\n");
+        }
+    }
+}
+
+int main() {
+    FILE *arquivo = fopen("cartelas.txt", "r");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return 1;
+    }
+
+    int linhas = conteNumeroLinhas(arquivo);
+
+    sorteiaCartelas(arquivo, linhas);
+
+    printf("\n# SELECIONE OUTRA CARTELA (2, 3 ou 4) ou PRESSIONE ENTER PARA SORTEAR: __\n");
+
+    fclose(arquivo);
+    return 0;
+}
