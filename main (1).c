@@ -20,15 +20,6 @@ int ler_cartelas(const char *nome_arquivo, Cartela *lista, int max_cartelas) {
     int cont = 0;
 
     while (fgets(linha, sizeof(linha), f) && cont < max_cartelas) {
-        // Substituir vírgulas por espaços
-        for (char *p = linha; *p; p++) {
-            if (*p == ',') *p = ' ';
-        }
-
-        // Ignorar linhas vazias
-        char *p = linha;
-        while (*p == ' ' || *p == '\t') p++;
-        if (*p == '\n' || *p == '\0') continue;
 
         int a,b,c,d,e;
         int lidos = sscanf(linha, "%d %d %d %d %d", &a,&b,&c,&d,&e);
