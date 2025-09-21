@@ -19,9 +19,12 @@ Destaca visualmente a cartela vencedora.
 Registra o nome do vencedor com data e hora em vencedores.txt.
 
 📂 Estrutura de Arquivos
-.
+
+
 ├── bingo.c          # Código-fonte principal
+
 ├── cartelas.txt     # Lista de cartelas (uma por linha, com 5 números)
+
 └── vencedores.txt   # Histórico dos vencedores (gerado automaticamente)
 
 🛠 Pré-requisitos
@@ -39,7 +42,7 @@ Formato do arquivo: cada linha deve conter 5 números inteiros separados por esp
 
 ▶ Como Compilar e Executar
 
-Acesse o site : GBD Online Compiler ([text](https://www.onlinegdb.com/))
+Acesse o site : GBD Online Compiler (https://www.onlinegdb.com/)
 
 Escolha a Linguagem C
 
@@ -75,5 +78,6 @@ Os nomes dos vencedores e as datas das vitórias são registrados em vencedores.
 Permitir múltiplos jogadores simultâneos.
 
 Configurar número de cartelas sorteadas e tamanho do bingo.
+
 
 Validar automaticamente o conteúdo do arquivo cartelas.txt.
